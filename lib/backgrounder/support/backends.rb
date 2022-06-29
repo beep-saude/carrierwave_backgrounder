@@ -17,7 +17,7 @@ module CarrierWave
           end
 
           def enqueue_for_backend(worker, class_name, subject_id, mounted_as)
-            self.send :"enqueue_#{backend}", worker, class_name, subject_id, mounted_as
+            self.send :"enqueue_#{backend}", worker, class_name, subject_id, mounted_as.to_s
           end
 
           private
