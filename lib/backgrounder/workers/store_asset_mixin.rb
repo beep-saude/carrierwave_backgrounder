@@ -23,12 +23,17 @@ module CarrierWave
           if record.save!
             FileUtils.rm_r(tmp_directory, :force => true)
           end
+
+          after_hook(record)
         else
           when_not_ready
         end
       end
 
       private
+
+      def after_hook(record)
+      end
 
       def store_directories(record)
         asset, asset_tmp = record.send(:"#{column}"), record.send(:"#{column}_tmp")

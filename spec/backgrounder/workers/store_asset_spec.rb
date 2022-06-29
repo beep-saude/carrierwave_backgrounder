@@ -71,19 +71,27 @@ RSpec.describe CarrierWave::Workers::StoreAsset do
       allow(admin).to receive(:avatar=).once
       allow(admin).to receive(:avatar_tmp=).with(nil).once
       allow(admin).to receive(:save!).once.and_return(false)
-      worker.perform admin, '23', :avatar
+
     end
 
     it 'sets klass' do
+      worker.perform admin, '23', :avatar
       expect(worker.klass).to eql(admin)
     end
 
     it 'sets column' do
+      worker.perform admin, '23', :avatar
       expect(worker.id).to eql('23')
     end
 
     it 'sets id' do
+      worker.perform admin, '23', :avatar
       expect(worker.column).to eql(:avatar)
+    end
+
+    it 'invokes after_hook method' do
+      expect(worker).to receive(:after_hook)
+      worker.perform admin, '23', :avatar
     end
   end
 
